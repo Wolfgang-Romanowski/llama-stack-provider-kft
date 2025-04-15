@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: kfto-remote-provider
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: kfto-remote-provider
+
+  template:
+    metadata:
+      labels:
+        app: kfto-remote-provider
+
+    spec:
+      serviceAccountName: kfto-remote-provider
+
+      containers:
+      - name: kfto-remote-provider
+        image: quay.io/efazal/kfto-remote-provider:dev
+
+        ports:
+        - containerPort: 8321
