@@ -1,8 +1,19 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+
+namespace: llama-stack
+
+labels:
+- pairs:
+    app: lls-provider-kft
+  includeSelectors: true     
+
 resources:
-  - ./rbac/cluster-role-binding.yaml
-  - ./rbac/role.yaml
-  - ./rbac/service-account.yaml
-  - ./manager/service.yaml
-  - ./manager/deployment.yaml
+  - manager/deployment.yaml
+  - manager/service.yaml
+
+  - rbac/service-account.yaml
+  - rbac/cluster-role.yaml
+  - rbac/cluster-role-binding.yaml
+
+  - network/ingress.yaml

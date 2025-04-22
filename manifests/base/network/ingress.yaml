@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: lls-provider-kft
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+
+spec:
+  ingressClassName: nginx                
+  rules:
+    - host: lls-provider-kft.example.com   
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: lls-provider-kft
+                port: { number: 80 }
+  tls:
+    - hosts: [ lls-provider-kft.example.com ]
+      secretName: lls-provider-kft-tls     
